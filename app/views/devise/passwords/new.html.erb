@@ -1,0 +1,24 @@
+<div class="row">
+   <div class="col-xs-3 col-xs-offset-2 col-md-6 col-md-offset-5">
+        <h2 class="title">Забыли пароль?</h2>      
+        <h4 style="color:#3c3e50;">Напишите свой электронный адрес и вам придет сообщение с инструкциями по восстановлению пароля</h4><br>
+   </div>
+
+   <div class="col-md-10 col-md-offset-1">
+       <div class="col-md-8 col-md-offset-2">
+      		<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  					<%= devise_error_messages! %>
+					<div class="form-group">
+		    			<%= f.email_field :email, :placeholder => "Эл.адрес", autofocus: true, class:"form-control" %>
+		  			</div>
+					<div class="col-md-offset-4">
+						 <%= f.submit "Восстановить пароль", class: "btn btn-primary" %>
+					</div>
+			<% end %>
+
+		<%= render "devise/shared/links" %>
+
+      </div>
+   </div>      
+</div>
+

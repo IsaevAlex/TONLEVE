@@ -1,0 +1,2 @@
+class ServiceCommentsController < ApplicationController
+end

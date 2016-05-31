@@ -1,0 +1,80 @@
+<div class="panel panel-white post panel-shadow">
+  			<div class="post-heading">
+                    <div class="pull-left image">
+                        
+                    </div>
+                    <div class="pull-left meta">
+                        <a href="#"><b><%= @service.user.last_name %> <%= @service.user.name %></b></a>
+                        <h6 class="text-muted time">Услуга добавлена <%= @service.created_at %></h6>
+                    </div>
+            </div> 
+            <div class="post-description"> 
+                <h2><%= @service.name  %></h2>
+            </div>
+            
+            
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                  <!-- Indicators -->
+                  <ol class="carousel-indicators">
+                    <% @service.service_images.each_with_index do |service_image, index| %>
+                        <% if index == 0 %>
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <% else %>
+                            <li data-target="#myCarousel" data-slide-to="<%= index %>"></li>
+                        <% end %>
+                    <% end %>
+                  </ol>
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+                        <% @service.service_images.each_with_index do |service_image, index| %>
+                            <% if index == 0 %>
+                                <div class="item active">
+                                    <p><%= image_tag service_image.avatar.url, width:"600", height:"400" %></p>
+                                </div>
+                            <% else %>
+                                 <div class="item">
+                                     <p><%= image_tag service_image.avatar.url,  width:"600", height:"400" %></p>
+                                 </div>
+                            <% end %>
+                        
+                        <% end %>                    
+                  </div>
+
+                  <!-- Left and right controls -->
+                  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    
+                  </a>
+                  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    
+                  </a>
+                </div>
+            <div class="post-description">
+                <h5><%= @service.info  %></h5>
+            </div>
+            <div class="service-form">
+                 <% if user_signed_in?  %>
+                    <h2>Добавить отзыв</h2>
+                    <%= render 'services_comments/form' %> <br>
+                <% else %>
+                    <p>Чтобы добавить отзыв,вы должны зарегистрироваться</p>    
+                <% end %><br>
+                <p><h4>Отзывы: <%= @service.comments.count %></h4></p>
+    
+            <% @service.comments.each do |comment| %>
+                <div class="well">
+                    <h4><%= comment.comment %></h4>
+                    <% if comment.user %>
+                        <p> Добавила  <%= comment.user.company_name %> </p>
+                        <% if can? :destroy, comment %>
+                            <%= link_to "Удалить", [comment.service, comment], method: :delete, data: { confirm: "Вы уверены?" } %>
+                        <% end %>
+                    <% end %>
+                </div>  
+            <% end %>
+
+            </div>
+            
+<service

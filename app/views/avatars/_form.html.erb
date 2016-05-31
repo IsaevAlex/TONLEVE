@@ -1,0 +1,11 @@
+
+<%= form_for([@user, @user.build_avatar]) do |f| %>
+ <%= render 'layouts/error_messages', object: f.object %>
+		
+		<div class="form-group" >
+			<%= f.file_field :photo, autofocus: true, class:"form-control" %>
+		</div>
+		
+		<%= f.submit "Добавить", class: "btn btn-primary" %>
+		<%= link_to "Отмена", :back , class: "btn btn-default" %>
+	<% end %>
