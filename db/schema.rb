@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523151030) do
+ActiveRecord::Schema.define(version: 20160603160613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 20160523151030) do
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
+  create_table "orders", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "sender_user_id"
+    t.integer  "recipient_user_id"
+    t.integer  "service_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "product_comments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "product_id"
@@ -83,6 +92,13 @@ ActiveRecord::Schema.define(version: 20160523151030) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+  end
+
+  create_table "product_likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -114,6 +130,13 @@ ActiveRecord::Schema.define(version: 20160523151030) do
     t.integer  "service_id"
   end
 
+  create_table "service_likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "services", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -137,8 +160,6 @@ ActiveRecord::Schema.define(version: 20160523151030) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
-    t.string   "last_name"
-    t.string   "company_name"
     t.integer  "signupcategory_id"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
@@ -149,6 +170,21 @@ ActiveRecord::Schema.define(version: 20160523151030) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"

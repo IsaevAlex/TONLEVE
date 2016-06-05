@@ -1,0 +1,25 @@
+<% @product_favorites.each do | product | %>
+	  <div class="box">
+        <div class="panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                </div>
+                <div class="pull-left meta">
+                     <a href="#"><b><%= product.user.name %></b></a>
+                     <h6 class="text-muted time">Товар добавлен <%= product.created_at %></h6>
+                </div>
+                <%= link_to "Подробнее", product , remote: true,  data: { toggle: "modal", target: "#showProductModal" }, class:"btn btn-default btn-content"  %> 
+            </div> 
+            <div class="post-description"> 
+                <h2><%= product.name %>  </h2>    
+                <% product.product_images.take(1).each do | image | %>
+                    <%= image_tag image.avatar.url, width:"350", height:"270" %>
+                <% end %>
+                <div class="post-description-info">
+                    <%= product.info %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+<%= will_paginate @product_favorites %>

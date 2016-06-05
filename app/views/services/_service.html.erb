@@ -1,0 +1,29 @@
+ <div class="box">
+        <div class="panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                </div>
+                <div class="pull-left meta">
+                    <a href="#"><b><%= service.user.name %></b></a>
+                     <h6 class="text-muted time">Услуга добавлена <%= service.created_at %></h6>
+                </div>
+                <% if can? :destroy, service %>
+                     <%= link_to service , method: :delete, data: { confirm: "Вы уверены?" }, class:"btn btn-default btn-content", title: 'Удалить', 'data-toggle' => 'tooltip', 'data-placement' => 'top' do %>
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                     <% end %>
+                <% end %>
+                <%= link_to service , remote: true,  data: { toggle: "modal", target: "#showServiceModal" }, class:"btn btn-default btn-content", title: 'Узнать подробнее об услуге', 'data-toggle' => 'tooltip', 'data-placement' => 'top' do %>
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                <% end %> 
+            </div> 
+            <div class="post-description"> 
+                <h2><%= service.name %>  </h2>    
+                <% service.service_images.take(1).each do | image | %>
+                    <%= image_tag image.avatar.url, width:"350", height:"270" %>
+                <% end %>
+                <div class="post-description-info">
+                    <%= service.info %>
+                </div>
+            </div>
+        </div>    
+    </div>

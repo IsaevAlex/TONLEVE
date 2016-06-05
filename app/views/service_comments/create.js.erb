@@ -1,0 +1,6 @@
+<% if @comment.new_record? %>
+	alert('Your comment cannot be saved.');
+<% else %>
+	$('#com').html("<%=j render @service.service_comments %>");
+	$("#flash").html('<%= escape_javascript(render :partial => "layouts/messages", :locals => {:comment => @comment}) %>');
+<% end %>

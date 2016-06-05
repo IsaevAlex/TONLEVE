@@ -1,0 +1,19 @@
+<div class="panel panel-white post panel-shadow">
+	<div class="post-heading">
+         <div class="pull-left image">
+         	<%= image_tag service_comment.user.avatar, height:"50", width:"50" %>
+         </div>
+         <div class="pull-left meta">
+         	<b><%= link_to service_comment.user.name %></b>
+                            добавила отзыв
+            <h6 class="text-muted time"><%= service_comment.created_at %></h6>
+         </div>
+         <% if can? :destroy, service_comment %>
+               <%= link_to "Удалить", [service_comment.service, service_comment], method: :delete, :remote => true,  data: { confirm: "Вы уверены?" }, class:"btn btn-danger btn-content" %>
+         <% end %>
+    </div> 
+    <div class="post-description">
+    		<h4><%= service_comment.comment %></h4>
+    </div>
+</div>
+

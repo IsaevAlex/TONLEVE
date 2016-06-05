@@ -24,8 +24,7 @@
 	padding: 0; 
 }
 
-
- /*General phone  styles*/
+/*General phone  styles*/
 
 body {
 	background-color: #F5F8FA; 
@@ -64,7 +63,10 @@ body {
   background-color: #fff;
   border-color: #ddd;
 }
-
+.head-right{
+  display: block;
+  float: right;
+}
 .post .post-heading {
   height: 95px;
   padding: 20px 15px;
@@ -95,7 +97,7 @@ body {
 
 .post .post-description {
   padding: 15px;
-
+  
 }
 .post .post-description p {
   font-size: 14px;
@@ -125,4 +127,85 @@ body {
 
 .service-form{
     margin: 20px;
+}
+
+/* search form */
+
+.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+.search-form .form-group input.form-control::-webkit-input-placeholder {
+  display: none;
+}
+.search-form .form-group input.form-control:-moz-placeholder {
+  /* Firefox 18- */
+  display: none;
+}
+.search-form .form-group input.form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  display: none;
+}
+.search-form .form-group input.form-control:-ms-input-placeholder {
+  display: none;
+}
+.search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 100%;
+  border-radius: 4px 25px 25px 4px;
+}
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;
+}
+
+/* buttons */
+
+.comment-button{
+   display:block; 
+   float: left;
+}
+
+.social-button{
+   display: block; 
+   float: right; 
+}
+
+/* buttons */
+
+/* home page */
+
+.greeting {
+  font-size: 56px;
+  color: #ffff;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.greeting-title{
+   text-align: center;
 }

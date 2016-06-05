@@ -5,6 +5,18 @@ class ProductsController < ApplicationController
 	def index
         @products = Product.all
 	end
+    
+    def upvote 
+  		@product = Product.find(params[:id])
+  		@product.upvote_by current_user
+  		redirect_to :back
+	end  
+
+	def downvote
+  		@product = Product.find(params[:id])
+  		@product.downvote_by current_user
+  		redirect_to :back
+	end
 
 	def new
 		@product = Product.new
@@ -17,11 +29,11 @@ class ProductsController < ApplicationController
 	def favorite
 	    type = params[:type]
 	    if type == "favorite"
-	      current_user.favorites << @product
+	      current_user.product_favorites << @product
 	      redirect_to :back, notice: 'Вы добавили в избранное продукт'
 
 	    elsif type == "unfavorite"
-	      current_user.favorites.delete(@product)
+	      current_user.product_favorites.delete(@product)
 	      redirect_to :back, notice: 'Вы удалили из избранных продукт'
 
 	    else
@@ -64,7 +76,7 @@ class ProductsController < ApplicationController
     end
 
 	def destroy
-		@sproductdestroy
+		@product.destroy
 		flash[:success] = "Товар успешно удален"
 		redirect_to current_user
 	end

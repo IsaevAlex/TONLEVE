@@ -1,0 +1,6 @@
+<% if feed.is_a? Product %>
+  	<%= render "product", :locals => {:product => feed}%>
+<% else %>
+  	<%= render "service", :locals => {:service => feed}%>
+<% end %>
+

@@ -1,0 +1,3 @@
+$('.vpos').bind('ajax:success', function() {
+ $('.glyphicon-thumbs-up').html('<%=escape_javascript @service.get_upvotes.size.to_s %>');
+});

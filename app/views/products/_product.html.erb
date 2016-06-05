@@ -1,0 +1,29 @@
+<div class="box">
+        <div class="panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                </div>
+                <div class="pull-left meta">
+                     <a href="#"><b><%= product.user.name %></b></a>
+                     <h6 class="text-muted time">Товар добавлен <%= product.created_at %></h6>
+                </div>
+                <% if can? :destroy, product %>
+                     <%= link_to  product , method: :delete, data: { confirm: "Вы уверены?" }, class:"btn btn-default btn-content", title: 'Удалить', 'data-toggle' => 'tooltip', 'data-placement' => 'top' do %>
+                           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                     <% end %>
+                <% end %>
+                <%= link_to product , remote: true,  data: { toggle: "modal", target: "#showProductModal" }, class:"btn btn-default btn-content", title: 'Узнать подробнее о товаре', 'data-toggle' => 'tooltip', 'data-placement' => 'top' do %>
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                <% end %> 
+            </div> 
+            <div class="post-description"> 
+                <h2><%= product.name %>  </h2>    
+                <% product.product_images.take(1).each do | image | %>
+                    <%= image_tag image.avatar.url, width:"350", height:"270" %>
+                <% end %>
+                <div class="post-description-info">
+                    <%= product.info %>
+                </div>
+            </div>
+        </div>
+    </div>

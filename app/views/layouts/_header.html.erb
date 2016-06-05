@@ -1,4 +1,4 @@
-<nav class="navbar navbar-static-top navbar " role="navigation">
+<nav class="navbar navbar-static-top " role="navigation">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-offset-1">
@@ -20,7 +20,7 @@
                 <ul class="nav navbar-nav" >
                
                     <% if user_signed_in? %>
-                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Аккаунт<b class="caret"></b></a>
+                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><%= link_to 'Личный Кабинет', current_user %></li>
 
@@ -29,13 +29,6 @@
                                                   
                                     </ul>
                             </li>   
-                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Поиск<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><%= link_to 'Поиск по категориям ', '#' %></li>
-                                        <li><%= link_to "Поиск по предложениям", '#' %></li>
-                                    </ul>
-                            </li>  
-                            
                     <% else %>
 
                             <li><%= link_to 'Войти', new_user_session_path %></li>
@@ -43,6 +36,16 @@
                     <% end %>
                
                  
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 90px; ">
+                    <div class="col-md-12">
+                        <%= form_tag search_path, method: 'get', class: 'search-form' do %>
+                              <div class="form-group has-feedback">
+                                  <%= text_field_tag :query, params[:query], class: 'form-control', id:"search" %>
+                                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                              </div>
+                        <% end %>
+                    </div>
                 </ul>
             </div>
        

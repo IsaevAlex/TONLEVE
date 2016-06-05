@@ -5,31 +5,53 @@
 		<% else %>
 			 <%= image_tag @user.avatar.photo.url(:me) %>
 		<% end %>
-		<h3><%= @user.last_name %> <%= @user.name %></h3>
+		<h3><%= @user.name %></h3>
+    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Дата регистрации: <%= @user.confirmed_at %></p>
 			
 	</div>
 	<div class="col-md-8">
 		 <ul class="nav nav-tabs">
-		 	<li class="active"><a data-toggle="tab" href="#panel1">Мои товары</a></li>
+		 	<li class="active"><a data-toggle="tab" href="#panel1">Лента</a></li>
 		 	<li><a data-toggle="tab" href="#panel2">Мои услуги </a></li>
-		    <li><a data-toggle="tab" href="#panel3">Новости</a></li>
+		    <li><a data-toggle="tab" href="#panel3">Мои товары</a></li>
 		    <li><a data-toggle="tab" href="#panel4">Избранные</a></li>
 		    <li><a data-toggle="tab" href="#panel5">Мои сообщения </a></li>
 		    <li><a data-toggle="tab" href="#panel6">Мои заказы</a></li>
 		 </ul>
 		<div class="tab-content">
-			<div id="panel1" class="tab-pane fade in active">
-				 <%= link_to "Добавить товар", new_product_path, remote: true, data: { toggle: "modal", target: "#newProductModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
-				 <%= render 'products/products_ticker' %>
-
-	        </div>
-	        <div id="panel2" class="tab-pane fade">
+			  <div id="panel1" class="tab-pane fade in active">
+				      <%= render @feed %>
+        </div>
+	      <div id="panel2" class="tab-pane fade">
 	             <%= link_to "Добавить услугу", new_service_path, remote: true, data: { toggle: "modal", target: "#newServiceModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
-	             <%= render 'services/services_ticker' %>
+	             <%= render @user.services.order("created_at DESC") %>
 		    </div>
 		    <div id="panel3" class="tab-pane fade">
+              <%= link_to "Добавить товар", new_product_path, remote: true, data: { toggle: "modal", target: "#newProductModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
+              <%= render @user.products.order("created_at DESC") %>
 		    </div>
             <div id="panel4" class="tab-pane fade">
+            	  <ul class="nav nav-tabs">
+            	  	 <li><a data-toggle="tab" href="#panel7">Избранные услуги</a></li>
+            	  	 <li><a data-toggle="tab" href="#panel6">Избранные товары</a></li>
+            	  </ul>
+            	  <div class="tab-content">
+            	  	  <div id="panel7" class="tab-pane fade">
+            	  	  	  <% if @user.service_favorites.any? %>
+                      			<%= render 'services/favorite_services' %>
+                    	  <% else %>
+                       	  		<h4>У вас пока нет избранных услуг</h4>
+                    	  <% end %>   
+            	  	  </div>
+            	  	  <div id="panel6" class="tab-pane fade">
+            	  	  	  <% if @user.product_favorites.any? %>
+                      			<%= render 'products/favorite_products' %>
+                    	  <% else %>
+                       	  		<h4>У вас пока нет избранных товаров</h4>
+                    	  <% end %>  
+            	  	  </div>
+            	  </div>
+            	  
 		    </div> 
 		    <div id="panel5" class="tab-pane fade">
 		    </div> 

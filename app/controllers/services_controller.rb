@@ -14,21 +14,37 @@ class ServicesController < ApplicationController
     	end
 	end
 
-	# def favorite
-	#     type = params[:type]
-	#     if type == "favorite"
-	#       current_user.favorites << @service
-	#       redirect_to :back, notice: 'Вы добавили в избранное предложение'
+	def upvote 
+  		@service = Service.find(params[:id])
+  		@service.upvote_by current_user
+  		respond_to do |format|
+      		   format.js 
+    	end
+  	end  
 
-	#     elsif type == "unfavorite"
-	#       current_user.favorites.delete(@service)
-	#       redirect_to :back, notice: 'Вы удалили из избранных предложение'
+	def downvote
+  		@service = Service.find(params[:id])
+  		@service.downvote_by current_user
+  		respond_to do |format|
+      		   format.js
+    	end
+  	end
 
-	#     else
-	#       # Type missing, nothing happens
-	#       redirect_to :back
-	#     end
- #    end
+	def favorite
+	    type = params[:type]
+	    if type == "favorite"
+	      current_user.favorites << @service
+	      redirect_to :back, notice: 'Вы добавили в избранное предложение'
+
+	    elsif type == "unfavorite"
+	      current_user.favorites.delete(@service)
+	      redirect_to :back, notice: 'Вы удалили из избранных предложение'
+
+	    else
+	      # Type missing, nothing happens
+	      redirect_to :back
+	    end
+    end
 
 	def create
 		@service = current_user.services.build(service_params)
