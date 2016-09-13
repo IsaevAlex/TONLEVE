@@ -2,9 +2,10 @@
         <div class="panel panel-white post panel-shadow">
             <div class="post-heading">
                 <div class="pull-left image">
+                    <%= link_to image_tag(product.user.avatar.photo.url, class:"img-rounded avatar"), product.user %>
                 </div>
                 <div class="pull-left meta">
-                     <a href="#"><b><%= product.user.name %></b></a>
+                     <a href="#"><b><%= link_to product.user.name, product.user %></b></a>
                      <h6 class="text-muted time">Товар добавлен <%= product.created_at %></h6>
                 </div>
                 <% if can? :destroy, product %>
@@ -15,15 +16,21 @@
                 <%= link_to product , remote: true,  data: { toggle: "modal", target: "#showProductModal" }, class:"btn btn-default btn-content", title: 'Узнать подробнее о товаре', 'data-toggle' => 'tooltip', 'data-placement' => 'top' do %>
                         <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
                 <% end %> 
+                <% if can? :update, product %>
+                         <%= link_to edit_product_path(product) , remote: true,  data: { toggle: "modal", target: "#editProductModal" } , class:"btn btn-default btn-content", title:"Редактировать", 'data-toggle' => 'tooltip', 'data-placement' => 'top' do %>
+                             <span class="glyphicon glyphicon-cog" aria-hidden = "true"></span>
+                         <% end %>
+                <% end %>
             </div> 
             <div class="post-description"> 
-                <h2><%= product.name %>  </h2>    
-                <% product.product_images.take(1).each do | image | %>
-                    <%= image_tag image.avatar.url, width:"350", height:"270" %>
-                <% end %>
+                <h2><%= product.name %>  </h2>   
                 <div class="post-description-info">
-                    <%= product.info %>
+                    <h4><%= product.info[0..99] %>...</h4>
                 </div>
+                <% product.product_images.take(1).each do | image | %>
+                    <%= image_tag image.avatar.url, width:"560", height:"300" %>
+                <% end %>
+                
             </div>
         </div>
     </div>

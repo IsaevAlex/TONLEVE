@@ -2,10 +2,10 @@
 
 one:
   body: MyText
-  conversation_id: 
+  product_order_id: 
   user_id: 
 
 two:
   body: MyText
-  conversation_id: 
+  product_order_id: 
   user_id: 

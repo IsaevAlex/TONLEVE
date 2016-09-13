@@ -10,18 +10,24 @@
 		<div class="form-group" >
 			<%= f.text_area :info, :placeholder => "Описание услуги", autofocus: true, class:"form-control", cols: "30", rows: "10" %>
 		</div>
+
+		<div class="form-group">
+			<%= f.text_field :price, :placeholder => "Цена", autofocus: true %>  <%= f.collection_select :currency_id, Currency.order(:name), :id, :name, {prompt: "Валюта"} %>
+		</div>
+		
+
 		<%= f.fields_for :service_images do |image| %>  
-	    	<% if image.object.new_record? %>
-	      		<%= image.file_field :avatar %>
-	    	<% else %> 
-	      		<%= image_tag avatar.url(:thumb) %>
-	      		<%= image.hidden_field :_destroy %>
-	      		<%= image.link_to_remove "X" %>
-	    	<% end %>
+	    	 <%= image.file_field(:avatar) %>
+      		 <%= image_tag image.object.avatar.url(:thumb) if image.object.avatar?  %>
+      		 <%= image.link_to_remove "Удалить" %>
 	  	<% end %>
 		<p><%= f.link_to_add "Добавить изображение", :service_images %></p>
-		<%= f.submit "Добавить", class: "btn btn-success" %>
-		<%= link_to "Отмена", :back , class: "btn btn-default" %>
+		
+		<div class="pull-right">
+			<%= f.submit "Добавить", class: "btn btn-success  " %>
+			<%= link_to "Отмена", :back , class: "btn btn-default " %>	
+		</div><br>
+		
 	<% end %>
 </div>	
 	

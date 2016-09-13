@@ -6,11 +6,45 @@
     		 <%= render @services.sort_by(&:created_at) %>
 		<% else %>
 			 <h4>По вашему запросу ничего не найдено</h4>	
-  		<% end %>
+    <% end %>
 	</div>
+   
+        
+        <% params[:filters] ||= {} %>
+<form class="form-inline">
+    <fieldset>
+        <legend>Filters</legend>
+        
+
+        
+        <div class="btn-group">
+            <%= link_to 'Добавленные сегодня', search_url(filters: params[:filters].merge(created_at: 'today').merge(product_sub_category_id: @category_id)), class: "btn btn-inverse #{'active' if params[:filters][:created_at] == 'today'}" %>
+            <%= link_to 'Вчерашние', search_url(filters: params[:filters].merge(created_at: 'yestarday')), class: "btn btn-inverse " %>
+            <%= link_to 'Добавленные 5 дней назад', search_url(filters: params[:filters].merge(created_at: '5 days ago')), class: "btn btn-inverse #{'active' if params[:filters][:created_at] == '5 days ago'}" %>
+            
+        </div>
+
+        
+    </fieldset>
+</form>
 </div>
 
+
 <div class="modal fade" id="showProductModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editProductModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editServiceModal">
   <div class="modal-dialog">
     <div class="modal-content">
     </div>

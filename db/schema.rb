@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603160613) do
+ActiveRecord::Schema.define(version: 20160908173710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,11 @@ ActiveRecord::Schema.define(version: 20160603160613) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
-  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+  create_table "currencies", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "favorite_products", force: :cascade do |t|
     t.integer  "user_id"
@@ -58,22 +61,28 @@ ActiveRecord::Schema.define(version: 20160603160613) do
 
   create_table "messages", force: :cascade do |t|
     t.text     "body"
-    t.integer  "conversation_id"
+    t.integer  "product_order_id"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "conversation_id"
+    t.boolean  "read",             default: false
   end
 
-  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["product_order_id"], name: "index_messages_on_product_order_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
-  create_table "orders", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "sender_user_id"
-    t.integer  "recipient_user_id"
-    t.integer  "service_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+  create_table "phones", force: :cascade do |t|
+    t.text     "number"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "product_comments", force: :cascade do |t|
@@ -94,11 +103,21 @@ ActiveRecord::Schema.define(version: 20160603160613) do
     t.datetime "avatar_updated_at"
   end
 
-  create_table "product_likes", force: :cascade do |t|
-    t.integer  "user_id"
+  create_table "product_orders", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "sender_user_id"
+    t.integer  "recipient_user_id"
+    t.boolean  "read",              default: false
     t.integer  "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "product_sub_categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "product_category_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -107,9 +126,19 @@ ActiveRecord::Schema.define(version: 20160603160613) do
     t.text     "info"
     t.integer  "category_id"
     t.decimal  "price"
-    t.integer  "price_category_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "unit_id"
+    t.integer  "currency_id"
+    t.integer  "product_count"
+    t.integer  "product_category_id"
+    t.integer  "product_sub_category_id"
+  end
+
+  create_table "service_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "service_comments", force: :cascade do |t|
@@ -130,11 +159,21 @@ ActiveRecord::Schema.define(version: 20160603160613) do
     t.integer  "service_id"
   end
 
-  create_table "service_likes", force: :cascade do |t|
-    t.integer  "user_id"
+  create_table "service_orders", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "sender_user_id"
+    t.integer  "recipient_user_id"
+    t.boolean  "read",              default: false
     t.integer  "service_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "service_sub_categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "service_category_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "services", force: :cascade do |t|
@@ -144,6 +183,14 @@ ActiveRecord::Schema.define(version: 20160603160613) do
     t.integer  "service_category_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.decimal  "price"
+    t.integer  "currency_id"
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -186,6 +233,6 @@ ActiveRecord::Schema.define(version: 20160603160613) do
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
-  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "product_orders"
   add_foreign_key "messages", "users"
 end

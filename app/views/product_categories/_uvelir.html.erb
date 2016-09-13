@@ -1,0 +1,31 @@
+<div class="col-md-4 block-indent">
+	<div class="hovereffect">
+		<%= link_to '#' do %>
+        	<%= image_tag("uvelirnew.jpg", class:"img-responsive") %>
+            <span class="text-col-md-4" id="one"><%= ProductCategory.find(6).name %></span>
+        <% end %>		
+        <div class="overlay">
+            <a class="info" href="#" id="md-4" data-toggle="modal" data-target="#uvelir">Открыть</a>            
+	    </div>
+	    <div class="modal fade" id="uvelir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	            <div class="modal-dialog" role="document">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                        <h4 class="modal-title" id="myModalLabel">Ювелирные изделия</h4>
+	                    </div>
+	                    <div class="modal-body">
+	                        <ul>
+	                            <% ProductSubCategory.where(product_category_id:6).each do | cat |%>
+	                                <li class="modal-window-category btn btn-default"> <%= cat.name %></li> 
+	                            <% end %>
+	                        </ul>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+	                    </div>
+	                </div>
+	            </div>
+	       </div>
+	</div>
+</div>

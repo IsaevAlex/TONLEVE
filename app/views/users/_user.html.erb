@@ -1,0 +1,15 @@
+<li class="left clearfix ">
+    <span class="chat-img pull-left">
+        <%= link_to image_tag(user.avatar.photo.url, class:"img-rounded", height:"50", width:"50"), user %>
+    </span>
+    <div class="chat-body clearfix">
+        <div class="header">
+            
+            <strong class="primary-font"><%= link_to user.name, user %></strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span><%= link_to "Подписаться", class:"btn btn-primary" %></small>
+        </div>
+        <p>
+                <%= user.created_at %>
+        </p>
+        </div>                                   
+</li>

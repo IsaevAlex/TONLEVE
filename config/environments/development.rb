@@ -53,7 +53,7 @@ Rails.application.configure do
       :port => 587, 
       :authentication => "plain",
       :user_name => 'lexsandr46@gmail.com',
-      :password => 'asensible1995cronos2025'
+      :password => 'asensible1995'
    }
  
 end

@@ -2,10 +2,6 @@ class ProductsController < ApplicationController
 	before_action :find_product, only: [ :destroy, :edit, :update, :show, :favorite ]
     respond_to :html, :json
     
-	def index
-        @products = Product.all
-	end
-    
     def upvote 
   		@product = Product.find(params[:id])
   		@product.upvote_by current_user
@@ -18,9 +14,11 @@ class ProductsController < ApplicationController
   		redirect_to :back
 	end
 
+	
+
 	def new
 		@product = Product.new
-		
+
 		respond_to do |format|
       		format.js {}
     	end
@@ -55,9 +53,16 @@ class ProductsController < ApplicationController
 	end
 
 	def show
+		session[:product_id] = @product.id
+        session[:recipient_user_id] = @product.user.id
 		respond_to do |format|
       		format.js {}
     	end
+
+    end
+
+    def index
+    	@products = Product.all
     end
 
 	def edit
@@ -87,6 +92,6 @@ class ProductsController < ApplicationController
 		end
 
 		def product_params
-			params.require(:product).permit(:name, :info, :category_id, :price, :price_category_id, product_images_attributes: [:id, :avatar, :_destroy])
+			params.require(:product).permit(:name, :info, :category_id, :price, :product_category_id, :product_sub_category_id, :unit_id, :currency_id, :product_count, product_images_attributes: [:id, :avatar, :_destroy])
 		end
 end

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Сообщение</title>
+	<link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="../../assets/stylesheets/">	
+</head>
+<body>
+	<h1>Tonleve</h1>
+	<span>Торговая площадка для всех</span><br>
+	<div class="email_text">
+		<p style= "line-height: 2.0em;">Приветствуем <%= @order.recipient_user.name if @order.recipient_user %>!!!</p>
+		<p> Пользователь <%=  @order.sender_user.name if @order.sender_user %> отправил Вам сообщение</p>
+		<div class="order">
+			<%= @order.content %>  
+		</div>	
+	</div>
+</body>
+</html>

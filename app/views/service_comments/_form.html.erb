@@ -4,5 +4,8 @@
 		<%= f.text_area :comment, autofocus: true, cols: "40", rows: "5", class:"form-control" %>
 	</div>
 
-	<%= f.submit "Добавить", class: "btn btn-success" %>
+	<%= f.submit "Добавить", class: "btn btn-success pull-right" %>
+	<button class="btn btn-danger pull-right" style="margin-right: 10px" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            Отмена
+                                    </button>
 <% end %>

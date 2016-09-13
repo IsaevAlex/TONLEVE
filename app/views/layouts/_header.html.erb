@@ -28,7 +28,11 @@
                                         <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
                                                   
                                     </ul>
-                            </li>   
+                            </li>  
+                            <li><%= link_to '#' do %>
+                                Сообщения <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            <% end %></li>
+                            
                     <% else %>
 
                             <li><%= link_to 'Войти', new_user_session_path %></li>
@@ -38,14 +42,14 @@
                  
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="margin-right: 90px; ">
-                    <div class="col-md-12">
+                    
                         <%= form_tag search_path, method: 'get', class: 'search-form' do %>
                               <div class="form-group has-feedback">
                                   <%= text_field_tag :query, params[:query], class: 'form-control', id:"search" %>
                                   <span class="glyphicon glyphicon-search form-control-feedback"></span>
                               </div>
                         <% end %>
-                    </div>
+                    
                 </ul>
             </div>
        

@@ -1,0 +1,26 @@
+
+<% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+    <% if conversation.sender_id == current_user.id %>
+        <% recipient = User.find(conversation.recipient_id) %>
+    <% else %>
+        <% recipient = User.find(conversation.sender_id) %>
+    <% end %>
+    <div class="panel panel-white post panel-shadow">
+        <div class="post-heading">
+            <div class="pull-left image">
+                <%= link_to image_tag(recipient.avatar.photo.url, class:"img-rounded avatar"), recipient %>
+            </div>
+            <div class="pull-left meta">
+                <a href="#"><b> <%= recipient.name %></b></a>
+                <h6 class="text-muted time"> <%= conversation.created_at %></h6>
+            </div><br>
+            <div class="pull-right meta">
+                <%= link_to "перейти к диалогу",   conversation_messages_path(conversation), remote: true, data: { toggle: "modal", target: "#indexMessageModal" }, class:"btn btn-primary" %>
+            </div><br>
+        </div> 
+        <div class="post-description" >
+            <p><strong><%= conversation.messages.last.user.name %>: </strong>  <%= conversation.messages.last.body %></p>
+        </div><br>
+    </div>
+<% end %>
+

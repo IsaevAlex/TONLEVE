@@ -1,0 +1,10 @@
+$("ul.errors").html("")
+<% if @comment.errors.any? %>
+  <% @comment.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $("ul.errors").append($("<li />").html("Вы оставили отзыв"))
+  $('#com').html("<%=j render @product.product_comments.order(created_at: :desc) %>");
+  $("#flash").html('<%= escape_javascript(render :partial => "layouts/messages", :locals => {:comment => @comment}) %>');
+<% end %>

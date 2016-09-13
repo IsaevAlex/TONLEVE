@@ -1,0 +1,14 @@
+<div class="form-modal">
+	<h3>Добавить номер</h3>
+	<%= nested_form_for [@phone], :html=>{ :multipart => true } do |f| %>
+		<%= render 'layouts/error_messages', object: f.object %>
+		<div class="form-group" >
+			<%= f.text_field :number, :placeholder => "Номер телефона. Например: +91 (123) 456-7890", autofocus: true, class:"form-control"  %>
+		</div>
+		<div class="pull-right">
+			<%= f.submit "Добавить", class: "btn btn-success  " %>
+			<%= link_to "Отмена", :back , class: "btn btn-default " %>	
+		</div><br>
+	<% end %>	
+</div>	
+	

@@ -17,9 +17,31 @@
 //= require chat
 //= require jquery_nested_form
 //= require turbolinks
+//= require tonleve
 //= require_tree .
 
 
 $(function () {
   $('.btn').tooltip()
 })
+
+
+
+jQuery(function() {
+  var states;
+  states = $('#product_product_sub_category_id').html();
+  console.log(states);
+  return $('#product_product_category_id').change(function() {
+    var country, options;
+    country = $('#product_product_category_id :selected').text();
+    options = $(states).filter("optgroup[label=" + country + "]").html();
+    console.log(options);
+    if (options) {
+      return $('#product_product_sub_category_id').html(options);
+    } else {
+      return $('#product_product_sub_category_id').empty();
+    }
+  });
+});
+
+

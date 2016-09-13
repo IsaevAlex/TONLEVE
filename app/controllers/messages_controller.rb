@@ -1,18 +1,34 @@
 class MessagesController < ApplicationController
-  before_filter :authenticate_user!
+	before_action do
+      @conversation = Conversation.find(params[:conversation_id])
+  end
 
+  def index
+      @messages = @conversation.messages
+      if @messages.length > 10
+        @over_ten = true
+        @messages = @messages[-10..-1]
+      end
+      if params[:m]
+        @over_ten = false
+        @messages = @conversation.messages
+      end
+      if @messages.last
+        if @messages.last.user_id != current_user.id
+          @messages.last.read = true;
+        end
+      end
+      
+  end
+  
   def create
-    @conversation = Conversation.find(params[:conversation_id])
-    @message = @conversation.messages.build(message_params)
-    @message.user_id = current_user.id
-    @message.save!
-
-    @path = conversation_path(@conversation)
+      @message = Message.new
+      @message = @conversation.messages.create(params[:message].permit(:body, :user_id))
+      @message.save
   end
 
   private
-
-  def message_params
-    params.require(:message).permit(:body)
-  end
+     def message_params
+      params.require(:message).permit(:body, :user_id)
+     end
 end

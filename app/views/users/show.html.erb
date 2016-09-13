@@ -3,13 +3,20 @@
 		<% if @user.avatar.nil? %>
 			 <%= image_tag("no_picture.jpg", size: "210x170",  :alt => "search", )%>
 		<% else %>
-			 <%= image_tag @user.avatar.photo.url(:me) %>
+			 <%= image_tag @user.avatar.photo.url, class:"img-rounded", size: "210x170"  %>
 		<% end %>
 		<h3><%= @user.name %></h3>
-    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Дата регистрации: <%= @user.confirmed_at %></p>
+    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Дата регистрации: <p><%= @user.confirmed_at %></p> 
+    
+    <% if @user.phones.any? %>
+      <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 
+      Телефон: <% @user.phones.each do |ph| %>
+        <p><%= ph.number %></p> 
+      <% end %> 
+    <% end %>
 			
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-7">
 		 <ul class="nav nav-tabs">
 		 	<li class="active"><a data-toggle="tab" href="#panel1">Лента</a></li>
 		 	<li><a data-toggle="tab" href="#panel2">Мои услуги </a></li>
@@ -18,52 +25,96 @@
 		    <li><a data-toggle="tab" href="#panel5">Мои сообщения </a></li>
 		    <li><a data-toggle="tab" href="#panel6">Мои заказы</a></li>
 		 </ul>
-		<div class="tab-content">
-			  <div id="panel1" class="tab-pane fade in active">
-				      <%= render @feed %>
-        </div>
-	      <div id="panel2" class="tab-pane fade">
-	             <%= link_to "Добавить услугу", new_service_path, remote: true, data: { toggle: "modal", target: "#newServiceModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
-	             <%= render @user.services.order("created_at DESC") %>
-		    </div>
-		    <div id="panel3" class="tab-pane fade">
-              <%= link_to "Добавить товар", new_product_path, remote: true, data: { toggle: "modal", target: "#newProductModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
-              <%= render @user.products.order("created_at DESC") %>
-		    </div>
-            <div id="panel4" class="tab-pane fade">
-            	  <ul class="nav nav-tabs">
-            	  	 <li><a data-toggle="tab" href="#panel7">Избранные услуги</a></li>
-            	  	 <li><a data-toggle="tab" href="#panel6">Избранные товары</a></li>
-            	  </ul>
-            	  <div class="tab-content">
-            	  	  <div id="panel7" class="tab-pane fade">
-            	  	  	  <% if @user.service_favorites.any? %>
-                      			<%= render 'services/favorite_services' %>
-                    	  <% else %>
-                       	  		<h4>У вас пока нет избранных услуг</h4>
-                    	  <% end %>   
-            	  	  </div>
-            	  	  <div id="panel6" class="tab-pane fade">
-            	  	  	  <% if @user.product_favorites.any? %>
-                      			<%= render 'products/favorite_products' %>
-                    	  <% else %>
-                       	  		<h4>У вас пока нет избранных товаров</h4>
-                    	  <% end %>  
-            	  	  </div>
-            	  </div>
-            	  
-		    </div> 
-		    <div id="panel5" class="tab-pane fade">
-		    </div> 
-		 </div> 
-	</div>
+  </div>
+  <div class="row">
+      <div class="col-md-7">
+          <div class="tab-content">
+              
+                <div id="panel1" class="tab-pane fade in active">
+
+                    <div class="block" >
+                        <h5>Рекомендуемые </h5>
+                        <%= render @users %>
+                    </div>
+                    <% if current_user.phones.empty? %>
+                          <%= render 'notifications/phone' %>  
+                    <% end %>
+                    <%= render 'notifications/geo' %>
+                    <%= render @feed %>
+                </div>
+                
+                 
+                
+
+              <div id="panel2" class="tab-pane fade">
+                     <%= link_to "Добавить услугу", new_service_path, remote: true, data: { toggle: "modal", target: "#newServiceModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
+                     <%= render @user.services.order("created_at DESC") %>
+              </div>
+              <div id="panel3" class="tab-pane fade">
+                    <%= link_to "Добавить товар", new_product_path, remote: true, data: { toggle: "modal", target: "#newProductModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
+                    <%= render @user.products.order("created_at DESC") %>
+              </div>
+              <div id="panel4" class="tab-pane fade">
+                     <div class="over-block">
+                       <div class="block">
+                            <li class="favorite_list"><a data-toggle="tab" href="#panel7">Избранные услуги</a></li>
+                            <li><a data-toggle="tab" href="#panel6">Избранные товары</a></li> 
+                        </div>
+                     </div>
+                    
+                    <div class="tab-content">
+                        <div id="panel7" class="tab-pane fade">
+                            <% if @user.service_favorites.any? %>
+                                <%= render 'services/favorite_services' %>
+                            <% else %>
+                                  <h4>У вас пока нет избранных услуг</h4>
+                            <% end %>   
+                        </div>
+                        <div id="panel6" class="tab-pane fade">
+                            <% if @user.product_favorites.any? %>
+                                <%= render 'products/favorite_products' %>
+                            <% else %>
+                                  <h4>У вас пока нет избранных товаров</h4>
+                            <% end %>  
+                        </div>
+                    </div>
+                </div> 
+                <div id="panel5" class="tab-pane fade">
+                    <div id="conversation">
+                            <%= render @conversations %>
+                            
+                    </div>
+                </div> 
+          </div> 
+      
+   
+
+  </div>
+		
+	
+  
+  
 	
 </div>
 
 
 
 
+
 <!-- Bootstrap Modal -->
+<div class="modal fade" id="indexMessageModal" tabindex="-1" data-focus-on="input:first" style="display: none; z-index: 2000000000;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Диалог</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+  </div>
+</div>
+
 <div class="modal fade" id="newProductModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -78,16 +129,52 @@
   </div>
 </div>
 
-<div class="modal fade" id="showProductModal">
+<div class="modal fade" id="showProductModal" tabindex="-1" data-focus-on="input:first" style="display: none;  ">
   <div class="modal-dialog">
     <div class="modal-content">
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="showServiceModal">
+<div class="modal fade" id="editProductModal">
   <div class="modal-dialog">
     <div class="modal-content">
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="showServiceModal" tabindex="-1" data-focus-on="input:first" style="display: none;"">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editServiceModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editPhoneModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="newPhoneModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showProductOrderModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+

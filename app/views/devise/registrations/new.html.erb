@@ -24,6 +24,14 @@
               <div class="form-group">
                     <%= f.password_field :password_confirmation, :placeholder => "Подтверждение пароля", autocomplete: "on", class:"form-control" %>
               </div><br>
+              <div class="invisible">
+                  <%= resource.build_avatar %>
+              </div>
+              <%= f.fields_for :avatar do |u| %>
+                  <div class="form-group">
+                      <%= u.file_field :photo, :placeholder => "Выберите аватар" , class:"form-control" %>
+                  </div><br>
+              <% end %>
               <div class="col-md-offset-4">
                   <%= f.submit "Зарегистрироваться", class: "btn btn-primary " %>
               </div>

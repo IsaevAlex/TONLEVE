@@ -1,0 +1,33 @@
+<div class="col-md-4">
+	<div class="hovereffect">
+		<%= link_to '#' do %>
+            <%= image_tag("обувь.jpg", class:"img-responsive") %>
+            <span class="text-col-md-4" id="one"><%= ProductCategory.find(14).name %></span>
+        <% end %>
+        <div class="overlay">
+            <a class="info" href="#" id="md-4" data-toggle="modal" data-target="#shoes">Открыть</a>                           
+        </div>
+        <div class="modal fade" id="shoes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Обувь</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <% ProductSubCategory.where(product_category_id:14).each do | cat |%>
+                                <li class="modal-window-category btn btn-default"> <%= cat.name %></li> 
+                            <% end %>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+         </div>
+	</div>
+</div>
+                       
+                    

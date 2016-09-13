@@ -1,0 +1,49 @@
+	
+    <div class="row">
+        	
+            
+                
+                
+                    <ul class="chat">
+                        <div id="message">
+    						<%= render @conversation.messages %>
+						</div>
+                        
+                    </ul>
+                <div id="message-form">
+                	<%= form_for([@conversation, @conversation.messages.build], remote: true) do |f| %>
+	                <div class="panel-footer">
+	                    <div class="input-group">
+	                        
+	                        <%= f.text_area :body, class: "form-control input-sm", id:"btn-input", type:"text", placeholder:"Сообщение" %>
+	                        <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+	                        <span class="input-group-btn">
+	                            <%= f.submit "Отправить",  class: "btn btn-warning btn-sm", id:"btn-chat" %>    
+	                        </span>
+	                    </div>
+	                </div>
+	            <% end %>
+				<%= subscribe_to "/messages/new" %>	 
+                </div>
+                
+           
+        
+    </div>
+
+
+	  
+	    	
+	  
+	  
+	  
+	 
+	 
+
+
+	
+
+
+
+
+
+

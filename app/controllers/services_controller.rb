@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-	before_action :find_service, only: [ :destroy, :edit, :update, :show ]
+	before_action :find_service, only: [ :destroy, :edit, :update, :favorite ]
     respond_to :html, :json
     
 	def index
@@ -24,6 +24,7 @@ class ServicesController < ApplicationController
 
 	def downvote
   		@service = Service.find(params[:id])
+  		session[:id] = @service.id
   		@service.downvote_by current_user
   		respond_to do |format|
       		   format.js
@@ -33,11 +34,11 @@ class ServicesController < ApplicationController
 	def favorite
 	    type = params[:type]
 	    if type == "favorite"
-	      current_user.favorites << @service
+	      current_user.service_favorites << @service
 	      redirect_to :back, notice: 'Вы добавили в избранное предложение'
 
 	    elsif type == "unfavorite"
-	      current_user.favorites.delete(@service)
+	      current_user.service_favorites.delete(@service)
 	      redirect_to :back, notice: 'Вы удалили из избранных предложение'
 
 	    else
@@ -45,6 +46,8 @@ class ServicesController < ApplicationController
 	      redirect_to :back
 	    end
     end
+
+
 
 	def create
 		@service = current_user.services.build(service_params)
@@ -59,6 +62,7 @@ class ServicesController < ApplicationController
 	end
 
 	def show
+		@service = Service.find(params[:id])
 		respond_to do |format|
       		format.js {}
     	end
@@ -91,6 +95,6 @@ class ServicesController < ApplicationController
 		end
 
 		def service_params
-			params.require(:service).permit(:name, :info, :service_category_id, :price, :price_category_id, service_images_attributes: [:id, :avatar, :_destroy])
+			params.require(:service).permit(:name, :info, :service_category_id, :price, :currency_id, :price_category_id, service_images_attributes: [:id, :avatar, :_destroy])
 		end
 end
