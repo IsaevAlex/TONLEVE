@@ -35,7 +35,7 @@ class PhonesController < ApplicationController
 		else
 			render '_edit_form'
 		end
-	enda
+	end
 
 	def destroy
 		respond_to do |format|
