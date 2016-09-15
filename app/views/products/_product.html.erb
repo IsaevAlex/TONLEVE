@@ -2,7 +2,7 @@
         <div class="panel panel-white post panel-shadow">
             <div class="post-heading">
                 <div class="pull-left image">
-                    <%= link_to image_tag(product.user.avatar.photo.url, class:"img-rounded avatar"), product.user %>
+                    <%= link_to image_tag(product.user.avatar.url, class:"img-rounded avatar"), product.user %>
                 </div>
                 <div class="pull-left meta">
                      <a href="#"><b><%= link_to product.user.name, product.user %></b></a>

@@ -2,7 +2,7 @@
   			    <div class="post-heading">
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                  <div class="pull-left image">
-                     <%= link_to image_tag(@product.user.avatar.photo.url, class:"img-rounded avatar"), @product.user %>
+                     <%= link_to image_tag(@product.user.avatar.url, class:"img-rounded avatar"), @product.user %>
                  </div>
                  <div class="pull-left meta">
                         <a href="#"><b> <%= @product.user.name %></b></a>
