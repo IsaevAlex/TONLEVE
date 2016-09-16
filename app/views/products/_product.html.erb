@@ -5,7 +5,7 @@
                     <%= link_to image_tag(product.user.avatar.url, class:"img-rounded avatar"), product.user %>
                 </div>
                 <div class="pull-left meta">
-                     <a href="#"><b><%= link_to product.user.name, product.user %></b></a>
+                     <a href="#"><b><%= link_to product.user.name , product.user %></b></a>
                      <h6 class="text-muted time">Товар добавлен <%= product.created_at %></h6>
                 </div>
                 <% if can? :destroy, product %>

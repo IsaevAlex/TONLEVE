@@ -21,7 +21,7 @@
         
             <div class="edit-block">
                 <div class="edit">
-                    <h3>Настройки профиля</h3><br>
+                    <h2>Настройки профиля</h2><br>
   
                 <div class="form-group">
                     <%= f.email_field :email, autofocus: true, placeholder: "Эл.адрес", class:"form-control"  %>
@@ -30,7 +30,7 @@
                 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                   <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
                 <% end %>
-
+                <h4>Изменить пароль</h4><br>
                 <div class="form-group">
                     <%= f.password_field :password, autocomplete: "off", placeholder: " Новый Пароль", class:"form-control" %>
                 </div><br>
@@ -39,8 +39,11 @@
                     <%= f.password_field :password_confirmation, autocomplete: "off", placeholder:"Повторите новый пароль", class:"form-control" %>
                 </div><br>
 
-               
-
+                <div class="form-group">
+                  
+                  <%= f.password_field :current_password, autocomplete: "off", placeholder: "Старый пароль", class:"form-control" %>
+                </div><br>
+               <h4>Изменить аватар</h4><br>
                <div class="form-group">
                     <%= f.file_field :avatar, :placeholder => "Загрузите изображение", class:"form-control" %>
                 </div>
