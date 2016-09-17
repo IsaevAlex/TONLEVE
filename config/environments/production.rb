@@ -87,7 +87,7 @@ Rails.application.configure do
       :address => "smtp.gmail.com",
       :port => 587, 
       :authentication => "plain",
-      :user_name => 'lexsandr46@gmail.com',
-      :password => 'asensible1995'
+      :user_name => ENV['SENDGRID_USERNAME'],
+      :password => ENV['SENDGRID_PASSWORD']
     }
 end
