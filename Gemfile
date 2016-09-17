@@ -19,6 +19,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'private_pub'
 gem 'thin'
 
+group :production do
+	gem 'pg'
+    gem 'rails_12factor'	
+end
 
 
 # Use ActiveModel has_secure_password
