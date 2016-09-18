@@ -76,14 +76,16 @@ Rails.application.configure do
   config.assets.debug = true
 
   # Do not dump schema after migrations.
+
   config.active_record.dump_schema_after_migration = false
   config.assets.compile = true
   config.assets.raise_runtime_errors = true
     config.action_mailer.default :charset => "utf-8"
     config.action_mailer.perform_deliveries = true
-    config.action_mailer.default_url_options = { host: 'tonleve.herokuapp.com', port: 3000 }
+    config.action_mailer.default_url_options = { host: 'tonleve.herokuapp.com' }
     
     config.action_mailer.smtp_settings = {
+
       :enable_starttls_auto => true,
       :address => "smtp.sendgrid.net",
       :domain => "tonleve.herokuapp.com",
