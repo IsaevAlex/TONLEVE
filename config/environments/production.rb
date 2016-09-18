@@ -86,6 +86,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       :enable_starttls_auto => true,
       :address => "smtp.sendgrid.net",
+      :domain => "tonleve.herokuapp.com",
       :port => 587, 
       :authentication => "plain",
       :user_name => ENV['SENDGRID_USERNAME'],
