@@ -3,7 +3,7 @@
 		<% if @user.avatar.nil? %>
 			 <%= image_tag("no_picture.jpg", size: "210x170",  :alt => "search", )%>
 		<% else %>
-			 <%= image_tag @user.avatar, class:"img-rounded", size: "210x170"  %>
+			 <%= image_tag @user.avatar.url, class:"img-rounded", size: "210x170"  %>
 		<% end %>
 		<h3><%= @user.name %></h3>
     <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Дата регистрации: <p><%= @user.confirmed_at %></p> 

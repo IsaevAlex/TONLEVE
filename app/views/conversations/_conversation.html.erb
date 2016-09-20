@@ -8,7 +8,7 @@
     <div class="panel panel-white post panel-shadow">
         <div class="post-heading">
             <div class="pull-left image">
-                <%= link_to image_tag(recipient.avatar.photo.url, class:"img-rounded avatar"), recipient %>
+                <%= link_to image_tag(recipient.avatar.url, class:"img-rounded avatar"), recipient %>
             </div>
             <div class="pull-left meta">
                 <a href="#"><b> <%= recipient.name %></b></a>
@@ -19,7 +19,9 @@
             </div><br>
         </div> 
         <div class="post-description" >
-            <p><strong><%= conversation.messages.last.user.name %>: </strong>  <%= conversation.messages.last.body %></p>
+            <% if conversation.messages.any? %>
+                <p><strong><%= conversation.messages.last.user.name %>: </strong>  <%= conversation.messages.last.body %></p>
+            <% end %>
         </div><br>
     </div>
 <% end %>
