@@ -19,7 +19,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'private_pub'
 gem 'thin'
 gem 'figaro'
-gem 'foreman'
+
 
 group :production do
 	gem 'pg'
