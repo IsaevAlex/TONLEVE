@@ -37,26 +37,25 @@
   <div class="row">
       <div class="col-md-7" style="margin-left: 50px;">
           <div class="tab-content">
-              
-                <div id="panel1" class="tab-pane fade in active">
-
-                   
-                    <% if current_user.phones.empty? %>
-                          <%= render 'notifications/phone' %>  
-                    <% end %>
-                    <%= render 'notifications/geo' %>
-                    <%= render @feed %>
-                </div>
-                
-                 
-                
-
-              <div id="panel2" class="tab-pane fade">
-                  <% if @user.id == current_user.id %>
+              <% if @user.id == current_user.id %>
+                  <div id="panel1" class="tab-pane fade in active">
+                        <% if current_user.phones.empty? %>
+                              <%= render 'notifications/phone' %>  
+                        <% end %>
+                        <%= render 'notifications/geo' %>
+                        <%= render @feed %>
+                  </div>
+              <% end %>
+              <% if @user.id == current_user.id %>
+                  <div id="panel2" class="tab-pane fade">
                      <%= link_to "Добавить услугу", new_service_path, remote: true, data: { toggle: "modal", target: "#newServiceModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
-                  <% end %>
                      <%= render @user.services.order("created_at DESC") %>
-              </div>
+                  </div>
+              <% else %>
+                  <div id="panel2" class="tab-pane fade in active">
+                      <%= render @user.services.order("created_at DESC") %>
+                  </div>
+              <% end %>
               <div id="panel3" class="tab-pane fade">
                   <% if @user.id == current_user.id %>
                     <%= link_to "Добавить товар", new_product_path, remote: true, data: { toggle: "modal", target: "#newProductModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
