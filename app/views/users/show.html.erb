@@ -29,7 +29,7 @@
     		    <li><a data-toggle="tab" href="#panel5">Мои сообщения </a></li>
     		    <li><a data-toggle="tab" href="#panel6">Мои заказы</a></li>
         <% else %>
-            <li><a data-toggle="tab" href="#panel2">Услуги <%= @user.name %> </a></li>
+            <li class="active"><a data-toggle="tab" href="#panel2">Услуги <%= @user.name %> </a></li>
             <li><a data-toggle="tab" href="#panel3">Товары <%= @user.name %> </a></li>
         <% end %>
 		 </ul>
@@ -52,13 +52,13 @@
                 
 
               <div id="panel2" class="tab-pane fade">
-                  <% unless @user.id == current_user.id %>
+                  <% if @user.id == current_user.id %>
                      <%= link_to "Добавить услугу", new_service_path, remote: true, data: { toggle: "modal", target: "#newServiceModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
                   <% end %>
                      <%= render @user.services.order("created_at DESC") %>
               </div>
               <div id="panel3" class="tab-pane fade">
-                  <% unless @user.id == current_user.id %>
+                  <% if @user.id == current_user.id %>
                     <%= link_to "Добавить товар", new_product_path, remote: true, data: { toggle: "modal", target: "#newProductModal"  }, class:"btn btn-primary btn-lg", style:"display:block; float:right;"  %>
                   <% end %>
                     <%= render @user.products.order("created_at DESC") %>
