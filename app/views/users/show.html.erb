@@ -21,12 +21,17 @@
 	
 	<div class="col-md-7" style="margin-left: 50px;">
 		 <ul class="nav nav-tabs">
-		 	<li class="active"><a data-toggle="tab" href="#panel1">Лента</a></li>
-		 	<li><a data-toggle="tab" href="#panel2">Мои услуги </a></li>
-		    <li><a data-toggle="tab" href="#panel3">Мои товары</a></li>
-		    <li><a data-toggle="tab" href="#panel4">Избранные</a></li>
-		    <li><a data-toggle="tab" href="#panel5">Мои сообщения </a></li>
-		    <li><a data-toggle="tab" href="#panel6">Мои заказы</a></li>
+        <% if @user.id == current_user.id %>
+    		 	  <li class="active"><a data-toggle="tab" href="#panel1">Лента</a></li>
+    		 	  <li><a data-toggle="tab" href="#panel2">Мои услуги </a></li>
+    		    <li><a data-toggle="tab" href="#panel3">Мои товары</a></li>
+    		    <li><a data-toggle="tab" href="#panel4">Избранные</a></li>
+    		    <li><a data-toggle="tab" href="#panel5">Мои сообщения </a></li>
+    		    <li><a data-toggle="tab" href="#panel6">Мои заказы</a></li>
+        <% else %>
+            <li><a data-toggle="tab" href="#panel2">Услуги @user.name </a></li>
+            <li><a data-toggle="tab" href="#panel3">Товары @user.name </a></li>
+        <% end %>
 		 </ul>
   </div>
   <div class="row">
