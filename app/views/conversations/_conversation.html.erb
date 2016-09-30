@@ -11,7 +11,7 @@
                 <%= link_to image_tag(recipient.avatar.url, class:"img-rounded avatar"), recipient %>
             </div>
             <div class="pull-left meta">
-                <a href="#"><b> <%= recipient.name %></b></a>
+                <a href="#"><b> <%= link_to recipient.name, recipient %></b></a>
                 <h6 class="text-muted time"> <%= conversation.created_at %></h6>
             </div><br>
             <div class="pull-right meta">
