@@ -6,5 +6,5 @@ test:
   secret_token: "secret"
 production:
   server: "http://privatepubtonleve.herokuapp.com/faye"
-  secret_token: "94b2052edff51eafba1c634d90c0835aca07c396a7d0e6d2133a8f00a7bfc821"
+  secret_token: "tonleve"
   signature_expiration: 3600 # one hour
