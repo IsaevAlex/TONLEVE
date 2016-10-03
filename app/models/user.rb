@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :phones
   has_many :messages, :dependent => :destroy
   has_many :conversations, :foreign_key => :sender_id,  :dependent => :destroy
+  has_many :conversations, :foreign_key => :recipient_id,   :dependent => :destroy
+
+
   
 
   has_many :products, :dependent => :destroy

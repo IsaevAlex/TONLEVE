@@ -89,8 +89,7 @@
                 </div> 
                 <div id="panel5" class="tab-pane fade">
                     <div id="conversation">
-                            <%= render @conversations %>
-                            
+                            <%= render :partial => 'conversations/conversation', :collection => @conversations %>
                     </div>
                 </div> 
           </div> 

@@ -1,11 +1,7 @@
 	
-    <div class="row">
-        	
-            
-                
-                
-                    <ul class="chat">
-                        <div id="message">
+    <div class="row" id="message-page-<%= @conversation.id %>" >
+       				<ul class="chat">
+             			<div id="message">
     						<%= render @conversation.messages %>
 						</div>
                         
@@ -25,10 +21,7 @@
 	            <% end %>
 				<%= subscribe_to "/messages/new" %>	 
                 </div>
-                
-           
-        
-    </div>
+      </div>
 
  <script type="text/javascript">
  	//press enter and send message

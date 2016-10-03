@@ -6,6 +6,7 @@ $("ul.errors").html("")
 <% else %>
   <% publish_to "/messages/new" do %>
   	  $('#message').html("<%= j render @conversation.messages %>");
-      $("#flash").html('<%= escape_javascript(render :partial => "layouts/messages", :locals => {:message => @message}) %>');
+  	  $('#conversation').html("<%= j render @conversation  %>");
+  	  $("#flash").html('<%= escape_javascript(render :partial => "layouts/messages", :locals => {:message => @message}) %>');
   <% end %>	
 <% end %>

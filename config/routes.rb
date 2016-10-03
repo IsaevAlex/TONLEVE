@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  root 'home#index'
+  
+  authenticated :user do
+      root 'users#current_user_home', as: :authenticated_root
+      get 'home', to: 'home#index'    
+  end 
+  root :to => "home#index"
+  
   resources :users do
       resources :avatars
   end 
+
+  
   
   resources :conversations do
         resources :messages
@@ -24,6 +32,7 @@ Rails.application.routes.draw do
         put "like", to: "products#upvote"
         put "dislike", to: "products#downvote"
     end
+    
 
   end
 

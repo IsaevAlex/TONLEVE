@@ -14,8 +14,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <div class="navbar-header">
-                     <%= link_to "Tonleve", root_path, class:"navbar-brand"%>
-                     
+                     <% if current_user %>
+                        <%= link_to "Tonleve", home_path , class:"navbar-brand"%>
+                     <% else %>
+                        <%= link_to "Tonleve", root_path , class:"navbar-brand"%>
+                     <% end %>
                 </div>
                 <ul class="nav navbar-nav" >
                

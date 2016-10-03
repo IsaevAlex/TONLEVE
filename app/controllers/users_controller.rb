@@ -12,7 +12,10 @@ class UsersController < ApplicationController
 		@feed = (products + services).sort_by(&:created_at).reverse
 		@conversations = Conversation.all
 	end
-    
+	
+	def current_user_home
+  		redirect_to current_user
+	end    
     
 
 	private
