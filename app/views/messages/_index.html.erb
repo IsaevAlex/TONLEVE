@@ -1,5 +1,6 @@
 	
-    <div class="row" id="message-page-<%= @conversation.id %>" >
+    <div class="row panel-chat" id="reverse_scroll">
+    	
        				<ul class="chat">
              			<div id="message">
     						<%= render @conversation.messages %>
@@ -21,6 +22,7 @@
 	            <% end %>
 				<%= subscribe_to "/messages/new" %>	 
                 </div>
+          
       </div>
 
  <script type="text/javascript">
@@ -30,6 +32,11 @@
       		$('#btn-chat').click();
   		}
 	});
+
+	
+
+
+	
  </script>
 
 

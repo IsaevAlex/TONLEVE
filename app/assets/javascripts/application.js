@@ -25,6 +25,15 @@ $(function () {
   $('.btn').tooltip()
 })
 
+  
+window.onload=function(){
+//When user clicks link
+$('#indexMessageModal').on('shown.bs.modal', function () {
+    var elem = document.getElementById('reverse_scroll');
+    elem.scrollTop = elem.scrollHeight;
+});
+}
+
 
 
 jQuery(function() {
